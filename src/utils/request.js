@@ -5,8 +5,27 @@ const service = axios.create({
   timeout: 5000
 })
 
-// service.interceptors.request()
+// 添加请求拦截器
+service.interceptors.request.use(
+  (config) => {
+    return config
+  },
+  (err) => {
+    return Promise.reject(err)
+  }
+)
 
-// service.interceptors.response()
+// 添加响应拦截器
+service.interceptors.response.use(
+  (response) => {
+    const { success, message, data } = response.data
+    if (success) {
+      return data
+    }
+  },
+  (err) => {
+    return Promise.reject(err)
+  }
+)
 
 export default service
