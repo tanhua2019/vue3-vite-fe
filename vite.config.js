@@ -20,9 +20,13 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:9999',
+        // mock 代理
+        // target: 'http://localhost:9999',
+        // rewrite: (path) => path.replace(/^\/api/, ''),
+        
+        // 真实接口地址
+        target: 'https://api.imooc-front.lgdsunday.club/',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
   }
