@@ -12,14 +12,18 @@
         {{ item.name }}
       </div>
     </div>
-    <div class="nav-right">
-      <SvgIcon name="hamburger" color="red"></SvgIcon>
+    <div class="nav-right" @click="clickPopup">
+      <m-svg-icons name="hamburger" color="red"></m-svg-icons>
     </div>
+    <m-popup v-model:isShow="isShow">
+      <Menu :categorys="categoryList" @clickItem="handleClick"/>
+    </m-popup>
   </div>
 </template>
 
 <script setup>
 import { ref, watch, onBeforeUpdate } from 'vue'
+import Menu from './menu.vue'
 const props = defineProps({
   categoryList: {
     type: Array,
@@ -29,20 +33,18 @@ const props = defineProps({
 let activeIndex = ref(0)
 const handleClick = (key) => {
   activeIndex.value = key
+  isShow.value = false
 }
 
 // 获取填充的所有 item 元素
 let itemRefs = []
 // 滑块
 const sliderStyle = ref({
-  transform: 'translateX(0px)'
+  transform: 'translateX(0px)',
+  width: '54px'
 })
 const setItemRef = (el) => {
   if (el) {
-    if (itemRefs.length == 0) {
-      const { width } = el.getBoundingClientRect()
-      sliderStyle.value.width = width + 'px'
-    }
     itemRefs.push(el)
   }
 }
@@ -54,6 +56,11 @@ watch(activeIndex, (newVal) => {
     width: width + 'px'
   }
 })
+
+const isShow = ref(false)
+const clickPopup = () => {
+  isShow.value = true
+}
 </script>
 
 <style lang="scss" scoped>

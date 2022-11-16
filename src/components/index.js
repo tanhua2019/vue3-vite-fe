@@ -1,6 +1,12 @@
-import SvgIcon from './svg-icons/index.vue'
+import { defineAsyncComponent } from 'vue'
+
 export default {
   install(app) {
-    app.component('SvgIcon', SvgIcon)
+    const modules = import.meta.glob('./*/index.vue')
+    for (const [key, val] of Object.entries(modules)) {
+      const componentName = key.replace('./', '').split('/')[0]
+      console.log(defineAsyncComponent(val), val);
+      app.component(`m-${componentName}`,defineAsyncComponent(val))
+    }
   }
 }

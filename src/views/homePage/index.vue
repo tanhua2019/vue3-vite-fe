@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <Nav></Nav>
-    <div style="height: 5000px; background-color: red;"></div>
+    <div style="height: 5000px; background-color: #ccc;"></div>
   </div>
 </template>
 

@@ -15,6 +15,10 @@ const categoryList = ref([])
 const getCategoryList = async () => {
   const { categorys } = await getCategory()
   categoryList.value = categorys
+  categoryList.value.unshift({
+    id: 'all',
+    name: '全部'
+  })
 }
 </script>
 
